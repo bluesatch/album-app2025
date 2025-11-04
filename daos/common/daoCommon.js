@@ -54,20 +54,7 @@ const daoCommon = {
             `SELECT * FROM ${table} ORDER BY ${sorter};`,
 
             (error, rows)=> {
-                if (!error) {
-                    if (rows.length == 1) {
-                        res.json(...rows)
-                    } else {
-                        res.json(rows)
-                    }
-                } else {
-                    console.log(`DAO Error: ${error}`)
-                    res.json({
-                        "message": 'error',
-                        'table': `${table}`,
-                        'error': error
-                    })
-                }
+                queryAction(res, error, rows, table)
             }
         )
     }

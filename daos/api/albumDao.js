@@ -33,6 +33,18 @@ const albumDao = {
                 queryAction(res, error, rows, table)
             }
         )
+    },
+
+    findAlbumsByArtistId: (res, table, id)=> {
+
+        const sql = `SELECT title, album_id, yr_released FROM ${table} WHERE artist_id = ${id};`
+
+        con.query(
+            sql,
+            (error, rows)=> {
+                queryAction(res, error, rows, table)
+            }
+        )
     }
 }
 

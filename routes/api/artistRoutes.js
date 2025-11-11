@@ -2,6 +2,8 @@ const router = require('express').Router()
 
 const { artistDao : dao } = require('../../daos/dao')
 
+// GET
+
 // http://localhost:3000/api/artist
 router.get('/', (req, res)=> {
     dao.findAll(req, res, dao.table)
@@ -17,13 +19,18 @@ router.get('/sort/:sorter', (req, res)=> {
     dao.sort(res, dao.table, req.params.sorter)
 })
 
+// localhost:3000/api/artist/:id
 router.get('/:id', (req, res)=> {
     dao.findById(res, dao.table, req.params.id)
 })
+
+// POST
 
 // http://localhost:3000/api/artist/create
 router.post('/create', (req, res)=> {
     dao.create(req, res, dao.table)
 })
+
+// PATCH
 
 module.exports = router

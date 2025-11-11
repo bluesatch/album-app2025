@@ -27,4 +27,4 @@ server.use(express.urlencoded({ extended: true}))
 // localhost:3000
 server.use('/', router)
 
-server.listen(PORT, ()=> console.log(`The Dodgers won the 2025 World Series!!`))
+server.listen(PORT, ()=> console.log(`The Dodgers won the 2025 World Series!! Oh. And the Port is ${PORT}`))

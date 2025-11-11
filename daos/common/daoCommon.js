@@ -51,6 +51,8 @@ const daoCommon = {
 
     create: (req, res, table)=> {
 
+        // req.body => {}
+
         if (Object.keys(req.body).length === 0) {
             // Object.keys(obj) => array of keys
             res.json({
@@ -60,6 +62,24 @@ const daoCommon = {
         } else {
             const fields = Object.keys(req.body)
             const values = Object.values(req.body)
+
+            /**
+             * 
+             * req.body = {
+             *      name: 'Satch',
+             *      age: 46,
+             *      occupation: 'software engineer',
+             *      favTeam: 'Dodgers'
+             * }
+             * 
+             * fields = [name, age, occupation, favTeam]
+             * values = ['Satch', 46, 'software engineer', 'Dodgers']
+             * 
+             * fields[0] == name
+             * values[0] == 'Satch'
+             * 
+             * INSERT INTO table SET name = 'Satch', age = '46, ...
+             */
 
             connect.execute(
                 `INSERT INTO ${table} SET ${fields.join(' = ?, ')} = ?;`,
@@ -75,9 +95,6 @@ const daoCommon = {
                 }
             )
         }
-
-        // console.log(req)
-        // res.send('complete')
     }
 }
 

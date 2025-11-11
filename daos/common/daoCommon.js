@@ -95,6 +95,46 @@ const daoCommon = {
                 }
             )
         }
+    },
+
+    update: (req, res, table)=> {
+
+        // check if id == number
+        if (isNaN(req.params.id)) {
+            res.json({
+                "error": true,
+                "message": "Id must be a number"
+            })
+        } else if (Object.keys(req.body).length == 0) {
+            res.json({
+                "error": true,
+                "message": "No fields to update"
+            })
+        } else {
+
+            const fields = Object.keys(req.body)
+            const values = Object.values(req.body)
+
+            connect.execute(
+                `UPDATE ${table} SET ${fields.join(' = ?, ')} = ? WHERE ${table}_id = ?;`,
+                [...values, req.params.id],
+                (error, dbres)=> {
+                    if (!error) {
+                        // res.send(`Changed ${dbres.changedRows} row(s)`)
+                        res.json({
+                            "status": 'updated',
+                            "changedRows": dbres.changedRows
+                        })
+                    } else {
+                        res.json({
+                            "error": true,
+                            "message": error
+                        })
+                    }
+                }
+            )
+        }
+
     }
 }
 
